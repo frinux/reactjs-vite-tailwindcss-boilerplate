@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import type { Task } from './apiService'
 import * as api from './apiService'
+export type { Task } from './apiService'
 export type TaskStore = {
     tasks: Task[]
     loading: boolean
