@@ -15,14 +15,11 @@ export default function TaskFilter({
     const clearCompleted = useTaskStore(
         (state: TaskStore) => state.clearCompleted
     )
-    const activeCount = tasks.filter((task: Task) => !task.completed).length
-    const completedCount = tasks.filter((task: Task) => task.completed).length
+    const activeCount = tasks.filter((task: Task) => !task.done).length
+    const completedCount = tasks.filter((task: Task) => task.done).length
     return (
         <div className="mt-6 flex items-center justify-between rounded-lg border bg-white p-4">
-            <span className="text-sm text-gray-600">
-                {activeCount} tâche{activeCount > 1 ? 's' : ''} active
-                {activeCount > 1 ? 's' : ''}
-            </span>
+            {/* Texte du nombre de tâches actives supprimé */}
             <div className="flex gap-2">
                 {(['all', 'active', 'completed'] as Filter[]).map((filter) => (
                     <button
