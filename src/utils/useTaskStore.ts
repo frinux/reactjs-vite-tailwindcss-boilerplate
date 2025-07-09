@@ -7,11 +7,12 @@ export type Task = {
     completed: boolean
 }
 
-type TaskStore = {
+export type TaskStore = {
     tasks: Task[]
     addTask: (title: string) => void
     toggleTask: (id: string) => void
     removeTask: (id: string) => void
+    clearCompleted: () => void
 }
 
 export const useTaskStore = create<TaskStore>()(
@@ -34,6 +35,10 @@ export const useTaskStore = create<TaskStore>()(
             removeTask: (id) =>
                 set((state) => ({
                     tasks: state.tasks.filter((task) => task.id !== id)
+                })),
+            clearCompleted: () =>
+                set((state) => ({
+                    tasks: state.tasks.filter((task) => !task.completed)
                 }))
         }),
         {

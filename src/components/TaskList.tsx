@@ -1,9 +1,11 @@
-import { useTaskStore } from '../utils/useTaskStore'
+import { Task } from '../utils/useTaskStore'
 import TaskItem from './TaskItem'
 
-export default function TaskList() {
-    const tasks = useTaskStore((s) => s.tasks)
+interface TaskListProps {
+    tasks: Task[]
+}
 
+export default function TaskList({ tasks }: TaskListProps) {
     if (tasks.length === 0) {
         return (
             <div className="py-8 text-center text-lg font-medium text-[#96C4A8]">
