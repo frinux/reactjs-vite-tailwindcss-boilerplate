@@ -1,24 +1,22 @@
-import { useTaskStore, Task, TaskStore } from '../utils/useTaskStore'
-
+import { useTaskStore, TaskStore } from '../utils/useTaskStore'
+import type { Task } from '../utils/apiService'
 export type Filter = 'all' | 'active' | 'completed'
-
 interface TaskFilterProps {
     currentFilter: Filter
     onFilterChange: (filter: Filter) => void
+    loading?: boolean
 }
-
 export default function TaskFilter({
     currentFilter,
-    onFilterChange
+    onFilterChange,
+    loading
 }: TaskFilterProps) {
     const tasks = useTaskStore((state: TaskStore) => state.tasks)
     const clearCompleted = useTaskStore(
         (state: TaskStore) => state.clearCompleted
     )
-
     const activeCount = tasks.filter((task: Task) => !task.completed).length
     const completedCount = tasks.filter((task: Task) => task.completed).length
-
     return (
         <div className="mt-6 flex items-center justify-between rounded-lg border bg-white p-4">
             <span className="text-sm text-gray-600">
@@ -34,6 +32,7 @@ export default function TaskFilter({
                                 ? 'bg-blue-500 text-white'
                                 : 'text-gray-600 hover:bg-gray-100'
                             }`}
+                        disabled={loading}
                     >
                         {filter === 'all'
                             ? 'Toutes'
@@ -45,8 +44,11 @@ export default function TaskFilter({
             </div>
             {completedCount > 0 && (
                 <button
-                    onClick={clearCompleted}
+                    onClick={async () => {
+                        await clearCompleted()
+                    }}
                     className="text-sm text-red-500 transition-colors hover:text-red-700"
+                    disabled={loading}
                 >
                     Effacer terminées
                 </button>

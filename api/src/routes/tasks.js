@@ -31,6 +31,7 @@ router.post('/', (req, res) => {
             updatedAt: now
         }
         tasks.push(newTask)
+        console.log('Toutes les tâches après ajout :', tasks)
         res.status(201).json({ success: true, data: newTask, error: null })
     } catch (err) {
         res
@@ -68,6 +69,7 @@ router.put('/:id', (req, res) => {
             tasks[idx].done = done
         }
         tasks[idx].updatedAt = new Date()
+        console.log('Toutes les tâches après modification :', tasks)
         res.json({ success: true, data: tasks[idx], error: null })
     } catch (err) {
         res
